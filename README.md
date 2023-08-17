@@ -5,8 +5,14 @@ This repo contains a "complete" example on setting
 [periodiq](https://gitlab.com/jeverling/periodiq) using redis as a broker and
 results backend.
 
-Actors are defined in `actors.actors1` and `actors.actors2`. `create_jobs`
-enqueues some jobs to run. `config` handles dramatiq and redis initialization.
+Actors are defined in `actors.actors1` and `actors.actors2`.
+`config` handles dramatiq and redis initialization.
+`create_jobs` enqueues some jobs to run.
+
+`create_jobs` will iterate over a list of websites, counting how many words it
+has on the landing page. The counts are stored in the result backend. The
+results are then iterated over using another actor to get to total word count.
+
 
 # Usage
 

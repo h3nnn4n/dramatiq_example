@@ -2,19 +2,14 @@ import config
 
 import dramatiq
 import requests
+import time
+from random import uniform
 
 
-@dramatiq.actor
+@dramatiq.actor(store_results=True)
 def count_words(url):
+    time.sleep(uniform(1, 3))
+
     response = requests.get(url)
     count = len(response.text.split(" "))
-    print(f"There are {count} words at {url!r}.")
-
-
-@dramatiq.actor
-def slow_count_words(url):
-    import time
-
-    time.sleep(5)
-
-    count_words(url)
+    return count

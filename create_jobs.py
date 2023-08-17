@@ -3,14 +3,19 @@ import config
 from actors import actors1, actors2
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     urls = [
         "https://news.ycombinator.com",
         "https://xkcd.com",
         "https://rabbitmq.com",
+        "https://dramatiq.io",
+        "https://lobste.rs",
     ]
-    [actors1.count_words.send(url) for url in urls]
-    [actors1.slow_count_words.send(url) for url in urls]
+    results = [actors1.count_words.send(url) for url in urls]
 
-    [actors2.add.send(a, b) for a, b in zip(range(10), range(10, 20))]
-    [actors2.mul.send(a, b) for a, b in zip(range(10), range(10, 20))]
+    total = 0
+    for item in results:
+        word_count = item.get_result(block=True)
+        result = actors2.add.send(total, word_count)
+        total += result.get_result(block=True)
+        print(f"{total=}")

@@ -4,16 +4,14 @@ from periodiq import cron
 import config
 
 
-@dramatiq.actor
+@dramatiq.actor(store_results=True)
 def add(a, b):
-    result = a + b
-    print(f"{a} + {b} = {result}")
+    return a + b
 
 
-@dramatiq.actor
+@dramatiq.actor(store_results=True)
 def mul(a, b):
-    result = a * b
-    print(f"{a} * {b} = {result}")
+    return a * b
 
 
 @dramatiq.actor(periodic=cron("* * * * *"))
