@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "dramatiq-standalone-poc"
+version = "0.1.0"
+description = ""
+authors = ["h3nnn4n <git@renan.digital>"]
+license = "MIT0"
+readme = "README.md"
+packages = [{include = "dramatiq_standalone_poc"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+dramatiq = {extras = ["redis"], version = "^1.14.2"}
+python-decouple = "^3.8"
+python-dotenv = "^1.0.0"
+periodiq = "^0.12.1"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
